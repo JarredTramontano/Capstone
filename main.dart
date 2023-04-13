@@ -16,48 +16,72 @@ void main() {
 
 //entries[index] to select location
 //entries[index][index] to select location attribute
-//[entry name, entry id]
+//[entry name, entry id, description]
 final List<List<String>> entries = [
   [
-    'Hound Ears','0'
+    'Grandmother Boulders','0'
   ],
   [
     'The Dump','1'
   ],
   [
-    'Sunken Tresure','2'
+    'Rocky Knob Park','2'
   ],
   [
     'Little Wilson','3'
   ],
   [
-    'Lost Cove','4'
+    'Greenway Boulders','4', 
   ],
   [
-    'Grandmother','5'
+    'Lost Cove','5'
   ]
 ];
 
 //routes for each entry. ex. routes for entry 3 will be at index 3
-//maybe [[[]]] ??
-final List<List<String>> routes = [
+//format: [name, difficulty, type of climb]
+final List<List<List<String>>> routes = [
+  //Grandmother
   [
-    'Route A 1', 'Route A 2'
+    ['1', '1', '1']
   ],
+  //The Dump
   [
-    'Route B 1', 'Route B 2', 'Route B 3'
+    ['1', '1', '1']
   ],
+  //Rocky Knob Park
   [
-    'Route C 1'
+     ['1', '1', '1']
   ],
+  //Little Wilson
   [
-    'Route D 1'
+    ['1', '1', '1']
   ],
+  //Greenway Boulders
   [
-    'Route E 1'
+    ['Greenway Block', 'Walk along the paved trail on the Greenway. This will be the first boulder you see. Gets lots of sun and only requires one to two pads.', 
+    'Standard Block', 'V2', 'Start at the corner of the arete with a big jug and a pinch. Go right along the boulder to the top and mantle over.',
+    'Under Beak', 'V3', 'Start on the low jugs on the arete below the edge of the roof. Go left under the roof and top out on the left side.\n\nCan be made a V4 by starting low on the far right of the mian face on very low crimp slots. Go up into the seams midway up and traverse left to the V3 start.', 
+    'Block Head', 'V5', 'Start on two low crimps (right of the start of Standard Block, left of Under Beak V4 start) and climb directly up. Top out.',
+    'Long Beak', 'V7', 'Sit start on the far right side of the main face on two low crimp slots, same as the Under Beak V4 start. Traverse left and low. Once midway under the roof, pull straight under the roof\'s belly towards the trail. Climb out of the belly to a slot at the lip and mantle over the featureless bulge (look for quartz).'
+    ],
+    ['Greenway Boulder', 'Keep walking on the trail past Greenway Block, this will be the second boulder on the trail. There are anchors at the top for top rope or for securing lines. The front face, which is the taller side, gets lots of sun. The opposite side gets very little sun.', 
+    'Prelude to Fear', 'V0+', 'description',
+    'Greenway Arete', 'V1', 'directions',
+    'Stickboy', 'V1', 'directions',
+    'Boone Swoon', 'V2', 'directions',
+    'Murder She Wrote', 'V3', 'direc',
+    'Murder Direct', 'V5', 'direc'
+    ],
+    ['Greenway Slab', 'Directly behind the Greenway Boulder. Mostly slab climbs, and gets lots of sun. Steeper on the left, but with more jugs.', 
+    'Slab Arete', 'V1', 'direc',
+    'A Slab Called Quest', 'V1', 'direc',
+    'Seems Good', 'V3', 'direc'
+    ]
   ],
+  //Lost Cove
   [
-    'Route F 1'
+    ['1', '1', '1']
   ]
 ];
 
@@ -73,12 +97,14 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'Capstone',
+        
         theme: ThemeData(
           scaffoldBackgroundColor: Color.fromARGB(255, 96, 202, 252),
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           unselectedWidgetColor: Colors.blue
         ),
+        
         home: MyHomePage(),
       ),
     );
@@ -250,7 +276,6 @@ class FileReader {
 */
 
 
-
 //maybe make InfoPage a listener of the home page 
 //so it can be sent which location's data to retrieve
 class InfoPage extends StatelessWidget {
@@ -268,7 +293,7 @@ class InfoPage extends StatelessWidget {
           size: 50,
         ),
         toolbarHeight: 200,
-        title: Text('Info for ${entries[id][0]}', style: TextStyle(fontSize: 75, color: Colors.white)),
+        title: Text('${entries[id][0]}', style: TextStyle(fontSize: 75, color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.blue,
         shape: const RoundedRectangleBorder(
@@ -277,7 +302,7 @@ class InfoPage extends StatelessWidget {
               bottomLeft: Radius.circular(25)),
         ),
         bottom: PreferredSize(
-          child: Text("${routes[id].length} routes", style: TextStyle(fontSize: 50, color: Colors.white)),
+          child: Text("${routes[id].length} locations", style: TextStyle(fontSize: 50, color: Colors.white)),
           preferredSize: Size.zero),
       ),
       body: ListView.separated(
@@ -287,17 +312,67 @@ class InfoPage extends StatelessWidget {
         return Container(
           color: Colors.white,
           //child: ListTile(
+
+            /*
           child: ExpansionTile(
-            title: Center(child: Text('${routes[id][index]}', style: TextStyle(fontSize: 50))),//Text('Entry ${entries[index]}', style: TextStyle(fontSize: 35)),
-            subtitle: Center(child: Text('Entry info', style: TextStyle(fontSize: 35))),
+            title: Center(child: Text('${routes[id][index][0]}', style: TextStyle(fontSize: 50))),//Text('Entry ${entries[index]}', style: TextStyle(fontSize: 35)),
+            //subtitle: Center(child: Text('Entry info', style: TextStyle(fontSize: 35))),
+            subtitle: Center(child: Text('${routes[id][index][1]}', style: TextStyle(fontSize: 35))),
             
             children: <Widget>[
-              ListTile(title: Center(child: Text('info', style: TextStyle(fontSize: 25)))),
+              ListTile(title: Center(child: Text('${routes[id][index][2]}', style: TextStyle(fontSize:35)))),
             ],
             //trailing: Row(
 
               //),//more_vert, size: 50),
           ),
+          */
+          child: ExpansionTile(
+            title: Center(child: Text('${routes[id][index][0]}', style: TextStyle(fontSize: 50))),
+            subtitle: Center(child: Text('${(routes[id][index].length - 2)  ~/ 3} routes', style: TextStyle(fontSize: 35))),
+
+            //child listview > itembuilder > container
+            children: <Widget>[
+              ListTile(title: Center(child: Text('${routes[id][index][1]}', style: TextStyle(fontSize: 40)))),
+              //ListView.builder(
+              ListView.separated(
+                padding: const EdgeInsets.all(15),
+                shrinkWrap: true,
+                itemCount: (routes[id][index].length -2) ~/ 3,
+                itemBuilder: (context, idx) {
+                  return ExpansionTile(
+                    title: Center(child: Text('${routes[id][index][(idx*3) + 2]}', style: TextStyle(fontSize:40))),
+                    subtitle: Center(child: Text('${routes[id][index][(idx*3)+3]}', style: TextStyle(fontSize: 35))),
+                    children: <Widget>[
+                      ListTile(title: Center(child: Text('${routes[id][index][(idx*3)+4]}', style: TextStyle(fontSize: 35))))
+                    ]
+                  );
+                },
+                separatorBuilder:(context, index) {
+                  return Divider(color: Colors.blue, thickness: 5);
+                }
+              )
+              /*
+              ListView.builder(
+                //make sure this is right
+                itemCount: (routes[id][index].length - 2) ~/ 3,
+
+                itemBuilder: (context, idx) {
+                  return Container(
+                    height: 50,
+                    color: Colors.white,
+                    child: ExpansionTile(
+                      //fix the offset of idx here. %??
+                      //idx + 
+                      title: Center(child: Text('${routes[id][index][idx + 2]}')),
+                    )
+                  );
+                }
+              )*/
+                
+            ]
+          )
+
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
@@ -321,11 +396,11 @@ class MainPage extends StatelessWidget {
         child: AppBar(
         title: const Text('Home', style: TextStyle(fontSize: 75, color: Colors.white)),
         backgroundColor: Colors.blue,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(25),
-              bottomLeft: Radius.circular(25)),
-        ),
+        //shape: const RoundedRectangleBorder(
+          //borderRadius: BorderRadius.only(
+              //bottomRight: Radius.circular(25),
+              //bottomLeft: Radius.circular(25)),
+        //),
         )
       ),
         body: ListView.separated(
@@ -341,7 +416,7 @@ class MainPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
               ),
               title: Center(child: Text('${entries[index][0]}', style: TextStyle(fontSize: 35))),
-              subtitle: Center(child: Text('${routes[index].length} routes', style: TextStyle(fontSize: 25))),
+              subtitle: Center(child: Text('${routes[index].length} locations', style: TextStyle(fontSize: 25))),
               //subtitle: Center(child: Text('$dat')),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
